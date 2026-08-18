@@ -1,18 +1,381 @@
-# This .gitignore is appropriate for repositories deployed to GitHub Pages and using
-# a Gemfile as specified at https://github.com/github/pages-gem#conventional
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Too Ate — Personal Shopper</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-# Basic Jekyll gitignores (synchronize to Jekyll.gitignore)
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-# Additional Ruby/bundler ignore for when you run: bundle install
-/vendor
+  html { scroll-behavior: smooth; }
 
-# Specific ignore for GitHub Pages
-# GitHub Pages will always use its own deployed version of pages-gem
-# This means GitHub Pages will NOT use your Gemfile.lock and therefore it is
-# counterproductive to check this file into the repository.
-# Details at https://github.com/github/pages-gem/issues/768
-Gemfile.lock
+  body {
+    font-family: 'Manrope', sans-serif;
+    color: #431f2e;
+    background: #fbeee4;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* NAV */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(251,238,228,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(67,31,46,0.12);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+  }
+
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  .logo em {
+    font-style: italic;
+    font-weight: 500;
+    color: #a8632f;
+  }
+
+  .navlinks {
+    display: flex;
+    gap: 32px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .navlinks a { opacity: 0.75; transition: opacity 0.2s; }
+  .navlinks a:hover { opacity: 1; }
+
+  .nav-cta {
+    background: #431f2e;
+    color: #fbeee4;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 100px 0 90px 0;
+  }
+
+  .drape {
+    position: absolute;
+    top: -180px;
+    right: -220px;
+    width: 620px;
+    height: 620px;
+    z-index: 0;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+  }
+
+  .eyebrow {
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #a8632f;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 84px;
+    line-height: 0.92;
+    letter-spacing: -2px;
+    margin-top: 18px;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: #a8632f;
+  }
+
+  .role {
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .motto {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: #a8632f;
+    margin-top: 22px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .btn-primary {
+    background: #431f2e;
+    color: #fbeee4;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: transform 0.2s;
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); }
+
+  .btn-secondary {
+    border: 1.5px solid #431f2e;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ABOUT */
+  .about-section {
+    background: #fff9f4;
+    padding: 90px 0;
+    border-top: 1px solid rgba(67,31,46,0.1);
+    border-bottom: 1px solid rgba(67,31,46,0.1);
+  }
+
+  .section-label {
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #a8632f;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 40px;
+    margin-top: 12px;
+    max-width: 560px;
+  }
+
+  .about-text {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #5c3a3a;
+    max-width: 640px;
+    margin-top: 24px;
+    font-weight: 500;
+  }
+
+  /* HOW IT WORKS */
+  .steps-section { padding: 90px 0; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 50px;
+  }
+
+  .step .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 30px;
+    color: #a8632f;
+  }
+
+  .step h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin-top: 12px;
+  }
+
+  .step p {
+    font-size: 15px;
+    color: #5c3a3a;
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: #431f2e;
+    color: #fbeee4;
+    padding: 90px 0;
+  }
+
+  .contact-section .section-label { color: #e3a25a; }
+
+  .contact-section .section-title {
+    color: #fbeee4;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+  }
+
+  .contact-card .k {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #e3a25a;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .contact-card .v {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  footer {
+    padding: 28px 0;
+    border-top: 1px solid rgba(251,238,228,0.15);
+    margin-top: 60px;
+    font-size: 13px;
+    opacity: 0.6;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 720px) {
+    h1 { font-size: 52px; }
+    .navlinks { display: none; }
+    .steps { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr 1fr; }
+    .section-title { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <div class="logo">Too<em>Ate</em></div>
+        <div class="navlinks">
+          <a href="#about">About</a>
+          <a href="#how">How It Works</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="nav-cta" href="https://wa.me/2348120909038" target="_blank">WhatsApp Me</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <svg class="drape" viewBox="0 0 760 760" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="560" cy="200" r="360" fill="#e3a25a" opacity="0.18"/>
+      <circle cx="620" cy="260" r="250" fill="#a8632f" opacity="0.16"/>
+    </svg>
+    <div class="wrap hero-inner">
+      <div class="eyebrow">Curated Style · Personal Service</div>
+      <h1>Too<br><em>Ate</em></h1>
+      <div class="role">Personal Shopper</div>
+      <div class="motto">"Shop to Drip — Shop Too Ate"</div>
+      <div class="hero-cta">
+        <a class="btn-primary" href="https://wa.me/2348120909038" target="_blank">Start Shopping With Me</a>
+        <a class="btn-secondary" href="#about">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section" id="about">
+    <div class="wrap">
+      <div class="section-label">About</div>
+      <div class="section-title">Your dedicated personal shopper</div>
+      <p class="about-text">
+        I am your dedicated personal shopper, here to curate the perfect selections tailored to your unique style and budget. I handle the searching and selection to save you time, ensuring you feel confident and satisfied with every purchase. Let's work together to bring your vision to life with ease and expertise.
+      </p>
+    </div>
+  </section>
+
+  <section class="steps-section" id="how">
+    <div class="wrap">
+      <div class="section-label">Process</div>
+      <div class="section-title">How it works</div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">01</div>
+          <h3>Share your style</h3>
+          <p>Tell me what you're looking for, your sizing, and your budget.</p>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <h3>I curate for you</h3>
+          <p>I search, compare, and select pieces that match your vision.</p>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <h3>You receive your pieces</h3>
+          <p>Everything is organized, packed, and delivered to you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="wrap">
+      <div class="section-label">Get In Touch</div>
+      <div class="section-title">Let's start your search</div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <span class="k">WhatsApp / Call</span>
+          <span class="v"><a href="https://wa.me/2348120909038" target="_blank">+234 812 090 9038</a></span>
+        </div>
+        <div class="contact-card">
+          <span class="k">Email</span>
+          <span class="v"><a href="mailto:salaudeenmuheez404@gmail.com">salaudeenmuheez404@gmail.com</a></span>
+        </div>
+        <div class="contact-card">
+          <span class="k">Location</span>
+          <span class="v">Lagos, Nigeria</span>
+        </div>
+        <div class="contact-card">
+          <span class="k">Delivery</span>
+          <span class="v">Available for a fee</span>
+        </div>
+      </div>
+      <footer>TOO ATE — Founded by Muheez</footer>
+    </div>
+  </section>
+
+</body>
+</html>
